@@ -63,7 +63,11 @@ check_PROGRAMS += $(TESTS)
 endif
 
 if ENABLE_FUZZ_DECODE
-noinst_PROGRAMS = fuzz_lldp fuzz_cdp fuzz_sonmp fuzz_edp
+noinst_PROGRAMS = fuzz_lldp fuzz_cdp fuzz_sonmp fuzz_edp fuzz_send
+
+fuzz_send_SOURCES = fuzz_send.c \
+	$(top_srcdir)/src/daemon/lldpd.h
+fuzz_send_LDADD = $(top_builddir)/src/daemon/liblldpd.la $(LDADD) $(FUZZ_DECODE_ENGINE)
 
 fuzz_lldp_SOURCES = fuzz_lldp.c \
 	$(top_srcdir)/src/daemon/lldpd.h
